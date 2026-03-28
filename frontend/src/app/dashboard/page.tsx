@@ -36,14 +36,14 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-gray-400">Loading...</p>
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <p className="text-sm font-medium text-text-tertiary">Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <DashboardHeader
         storeName={store?.name || "Dashboard"}
         onLogout={logout}
@@ -51,14 +51,14 @@ export default function DashboardPage() {
         onPeriodChange={setPeriod}
       />
 
-      <main className="mx-auto max-w-7xl space-y-6 p-6">
+      <main className="mx-auto max-w-7xl space-y-6 px-6 py-8">
         {/* KPI Cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {overviewLoading || !overview ? (
             Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={i}
-                className="h-28 animate-pulse rounded-xl border border-gray-200 bg-white"
+                className="skeleton-shimmer h-[104px] rounded-xl border border-border"
               />
             ))
           ) : (
@@ -95,13 +95,13 @@ export default function DashboardPage() {
         {/* Bottom grid: Products + Activity */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {productsLoading || !products ? (
-            <div className="h-64 animate-pulse rounded-xl border border-gray-200 bg-white" />
+            <div className="skeleton-shimmer h-64 rounded-[14px] border border-border" />
           ) : (
             <TopProductsTable products={products} />
           )}
 
           {activitiesLoading || !activities ? (
-            <div className="h-64 animate-pulse rounded-xl border border-gray-200 bg-white" />
+            <div className="skeleton-shimmer h-64 rounded-[14px] border border-border" />
           ) : (
             <RecentActivityFeed
               activities={activities}

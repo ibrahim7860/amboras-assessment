@@ -8,10 +8,10 @@ interface Activity {
 }
 
 const BADGE_COLORS: Record<string, string> = {
-  page_view: "bg-blue-100 text-blue-700",
-  add_to_cart: "bg-amber-100 text-amber-700",
-  purchase: "bg-green-100 text-green-700",
-  signup: "bg-purple-100 text-purple-700",
+  page_view: "bg-blue-500/10 text-blue-400",
+  add_to_cart: "bg-amber-500/10 text-amber-400",
+  purchase: "bg-emerald-500/10 text-emerald-400",
+  signup: "bg-violet-500/10 text-violet-400",
 };
 
 function relativeTime(timestamp: string): string {
@@ -44,37 +44,52 @@ export function RecentActivityFeed({
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6">
-      <h3 className="mb-4 text-sm font-medium text-gray-500">
-        Recent Activity
-      </h3>
-      <div className="scrollbar-thin max-h-96 space-y-3 overflow-y-auto">
-        {merged.map((event, i) => (
-          <div
-            key={event.eventId}
-            className={`flex items-start gap-3 rounded-lg p-2 transition-all duration-300 ${
-              i < liveEvents.length ? "bg-indigo-50/50" : ""
-            }`}
-          >
-            <span
-              className={`inline-flex shrink-0 items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                BADGE_COLORS[event.eventType] || "bg-gray-100 text-gray-700"
+    <div className="card-elevated p-0">
+      <div className="flex items-center gap-2 px-6 pt-6 pb-4">
+        <h3 className="text-sm font-semibold text-text-primary">
+          Recent Activity
+        </h3>
+        {liveEvents.length > 0 && (
+          <span className="flex items-center gap-1.5 rounded-md bg-green-500/10 px-2 py-0.5 text-[11px] font-semibold text-green-400">
+            <span className="live-dot" />
+            Live
+          </span>
+        )}
+      </div>
+      <div className="scrollbar-thin max-h-96 overflow-y-auto pb-2">
+        {merged.map((event, i) => {
+          const isLive = i < liveEvents.length;
+          return (
+            <div
+              key={event.eventId}
+              className={`flex items-start gap-3 px-6 py-3 transition-all duration-300 ${
+                i < merged.length - 1 ? "border-b border-border-subtle" : ""
+              } ${
+                isLive
+                  ? "border-l-2 border-l-green-400 bg-green-400/[0.04]"
+                  : "hover:bg-white/[0.02]"
               }`}
             >
-              {event.eventType.replace(/_/g, " ")}
-            </span>
-            <span className="min-w-0 flex-1 truncate text-sm text-gray-700">
-              {(event.data?.productName as string) ||
-                (event.data?.page as string) ||
-                event.eventType}
-            </span>
-            <span className="shrink-0 text-xs text-gray-400">
-              {relativeTime(event.timestamp)}
-            </span>
-          </div>
-        ))}
+              <span
+                className={`inline-flex shrink-0 items-center rounded-md px-2 py-0.5 text-[11px] font-semibold ${
+                  BADGE_COLORS[event.eventType] || "bg-white/5 text-text-secondary"
+                }`}
+              >
+                {event.eventType.replace(/_/g, " ")}
+              </span>
+              <span className="min-w-0 flex-1 truncate text-sm text-text-secondary">
+                {(event.data?.productName as string) ||
+                  (event.data?.page as string) ||
+                  event.eventType}
+              </span>
+              <span className="shrink-0 font-mono text-[11px] text-text-tertiary">
+                {relativeTime(event.timestamp)}
+              </span>
+            </div>
+          );
+        })}
         {merged.length === 0 && (
-          <p className="py-8 text-center text-sm text-gray-400">
+          <p className="py-8 text-center text-sm text-text-tertiary">
             No recent activity
           </p>
         )}

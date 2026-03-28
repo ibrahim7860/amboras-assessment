@@ -37,19 +37,24 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-sm">
-        <h1 className="mb-8 text-center text-2xl font-semibold text-gray-900">
-          Store Analytics
-        </h1>
+    <div className="bg-grid flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="w-full max-w-[380px]">
+        <div className="mb-8 text-center">
+          <h1 className="text-xl font-bold tracking-tight text-text-primary">
+            Store Analytics
+          </h1>
+          <p className="mt-2 text-sm text-text-tertiary">
+            Sign in to your dashboard
+          </p>
+        </div>
         <form
           onSubmit={handleSubmit}
-          className="space-y-4 rounded-xl border border-gray-200 bg-white p-6 shadow-sm"
+          className="card-elevated space-y-5 p-7"
         >
           <div>
             <label
               htmlFor="email"
-              className="mb-1 block text-sm font-medium text-gray-700"
+              className="mb-1.5 block text-xs font-semibold text-text-secondary"
             >
               Email
             </label>
@@ -59,14 +64,14 @@ export default function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full rounded-lg border border-border bg-surface-muted px-3 py-2.5 text-sm text-text-primary placeholder:text-text-tertiary transition-shadow focus:outline-none focus:ring-2 focus:ring-primary/30"
               placeholder="alice@techstore.com"
             />
           </div>
           <div>
             <label
               htmlFor="password"
-              className="mb-1 block text-sm font-medium text-gray-700"
+              className="mb-1.5 block text-xs font-semibold text-text-secondary"
             >
               Password
             </label>
@@ -76,16 +81,18 @@ export default function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full rounded-lg border border-border bg-surface-muted px-3 py-2.5 text-sm text-text-primary placeholder:text-text-tertiary transition-shadow focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
           </div>
           {error && (
-            <p className="text-sm text-red-600">{error}</p>
+            <div className="rounded-md bg-red-500/10 px-3 py-2">
+              <p className="text-sm text-red-400">{error}</p>
+            </div>
           )}
           <button
             type="submit"
             disabled={submitting}
-            className="w-full rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700 disabled:opacity-50"
+            className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-hover hover:shadow-md disabled:opacity-50"
           >
             {submitting ? "Signing in..." : "Sign in"}
           </button>
