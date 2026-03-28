@@ -4,7 +4,7 @@ A real-time analytics dashboard for Amboras, a multi-tenant eCommerce platform. 
 
 ## Demo
 
-> Video walkthrough: [Loom link TBD]
+[Video Walkthrough](https://www.loom.com/share/ac16308a9fa8440391b6c8b2dfce834b)
 
 ## Setup Instructions
 
