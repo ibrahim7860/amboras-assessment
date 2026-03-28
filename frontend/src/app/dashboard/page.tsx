@@ -19,9 +19,9 @@ export default function DashboardPage() {
   const router = useRouter();
   const [period, setPeriod] = useState<Period>("today");
 
-  const { overview, isLoading: overviewLoading } = useAnalytics(period);
-  const { products, isLoading: productsLoading } = useTopProducts(period);
-  const { activities, isLoading: activitiesLoading } = useRecentActivity();
+  const { overview, isLoading: overviewLoading, error: overviewError } = useAnalytics(period);
+  const { products, isLoading: productsLoading, error: productsError } = useTopProducts(period);
+  const { activities, isLoading: activitiesLoading, error: activitiesError } = useRecentActivity();
   const { liveEvents } = useEventSource();
 
   useEffect(() => {
@@ -54,7 +54,11 @@ export default function DashboardPage() {
       <main className="mx-auto max-w-7xl space-y-6 px-6 py-8">
         {/* KPI Cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {overviewLoading || !overview ? (
+          {overviewError ? (
+            <div className="col-span-full rounded-xl border border-red-200 bg-red-50 p-6 text-center text-sm text-red-600">
+              Failed to load metrics. Try refreshing the page.
+            </div>
+          ) : overviewLoading || !overview ? (
             Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={i}
@@ -94,13 +98,21 @@ export default function DashboardPage() {
 
         {/* Bottom grid: Products + Activity */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {productsLoading || !products ? (
+          {productsError ? (
+            <div className="rounded-[14px] border border-red-200 bg-red-50 p-6 text-center text-sm text-red-600">
+              Failed to load products. Try refreshing the page.
+            </div>
+          ) : productsLoading || !products ? (
             <div className="skeleton-shimmer h-64 rounded-[14px] border border-border" />
           ) : (
             <TopProductsTable products={products} />
           )}
 
-          {activitiesLoading || !activities ? (
+          {activitiesError ? (
+            <div className="rounded-[14px] border border-red-200 bg-red-50 p-6 text-center text-sm text-red-600">
+              Failed to load activity. Try refreshing the page.
+            </div>
+          ) : activitiesLoading || !activities ? (
             <div className="skeleton-shimmer h-64 rounded-[14px] border border-border" />
           ) : (
             <RecentActivityFeed

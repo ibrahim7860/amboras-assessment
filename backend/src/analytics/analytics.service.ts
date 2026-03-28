@@ -194,7 +194,7 @@ export class AnalyticsService {
         checkout_started: counts['checkout_started'] || 0,
         purchases,
       },
-      conversionRate: pageViews > 0 ? purchases / pageViews : 0,
+      conversionRate: pageViews > 0 ? (purchases / pageViews) * 100 : 0,
     };
   }
 
@@ -228,7 +228,7 @@ export class AnalyticsService {
         checkout_started: parseInt(row?.checkoutStarted, 10) || 0,
         purchases,
       },
-      conversionRate: pageViews > 0 ? purchases / pageViews : 0,
+      conversionRate: pageViews > 0 ? (purchases / pageViews) * 100 : 0,
     };
   }
 

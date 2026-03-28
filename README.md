@@ -292,7 +292,7 @@ These are optimizations we'd implement as Amboras grows, documented to show the 
 
 ## Time Spent
 
-> [To be filled after completion]
+Approximately 3 hours.
 
 ---
 

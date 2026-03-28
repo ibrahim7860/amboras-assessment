@@ -45,10 +45,10 @@ export function TopProductsTable({ products }: { products: Product[] }) {
                 <td className="py-3 pr-4 font-medium text-text-primary">
                   {product.productName}
                 </td>
-                <td className="py-3 pr-4 text-right font-mono text-sm text-kpi-revenue">
+                <td className="py-3 pr-4 text-right font-mono text-sm font-semibold text-kpi-revenue">
                   ${product.revenue.toLocaleString("en-US", { minimumFractionDigits: 2 })}
                 </td>
-                <td className="py-3 pr-6 text-right font-mono text-sm text-text-secondary">
+                <td className="py-3 pr-6 text-right font-mono text-sm font-semibold text-text-secondary">
                   {product.unitsSold.toLocaleString()}
                 </td>
               </tr>
