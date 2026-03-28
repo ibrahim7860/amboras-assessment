@@ -8,6 +8,7 @@ import { useTopProducts } from "@/hooks/useTopProducts";
 import { useRecentActivity } from "@/hooks/useRecentActivity";
 import { useEventSource } from "@/hooks/useEventSource";
 import { DashboardHeader } from "@/components/DashboardHeader";
+import { ViewerCount } from "@/components/ViewerCount";
 import { KpiCard } from "@/components/KpiCard";
 import { RevenueChart } from "@/components/RevenueChart";
 import { TopProductsTable } from "@/components/TopProductsTable";
@@ -70,6 +71,10 @@ export default function DashboardPage() {
       />
 
       <main className="mx-auto max-w-7xl space-y-6 px-6 py-8">
+        <div className="flex justify-end">
+          <ViewerCount />
+        </div>
+
         {/* KPI Cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {overviewError ? (

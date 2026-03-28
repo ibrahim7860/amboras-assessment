@@ -5,11 +5,12 @@ import { Event } from '../events/event.entity';
 import { EventsModule } from '../events/events.module';
 import { AnalyticsController } from './analytics.controller';
 import { AnalyticsService } from './analytics.service';
+import { ViewersService } from './viewers.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([DailyStoreMetric, Event]), EventsModule],
   controllers: [AnalyticsController],
-  providers: [AnalyticsService],
+  providers: [AnalyticsService, ViewersService],
   exports: [AnalyticsService],
 })
 export class AnalyticsModule {}
