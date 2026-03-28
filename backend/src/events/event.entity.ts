@@ -8,6 +8,7 @@ import {
 @Entity('events')
 @Index('IDX_events_store_timestamp', ['store_id', 'timestamp'])
 @Index('IDX_events_store_type_timestamp', ['store_id', 'event_type', 'timestamp'])
+@Index('IDX_events_store_timestamp_purchase', ['store_id', 'timestamp'], { where: "event_type = 'purchase'" })
 export class Event {
   @PrimaryGeneratedColumn('uuid')
   event_id: string;
