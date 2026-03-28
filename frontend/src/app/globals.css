@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: dark;
   --background: #09090b;
   --foreground: #f4f4f5;
 }
@@ -136,6 +137,13 @@ body {
     opacity: 0.8;
     box-shadow: 0 0 0 4px rgba(34, 197, 94, 0);
   }
+}
+
+/* ---------- Date input calendar icon ---------- */
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(0.8);
+  cursor: pointer;
 }
 
 /* ---------- Scrollbar ---------- */

@@ -12,15 +12,31 @@ import { KpiCard } from "@/components/KpiCard";
 import { RevenueChart } from "@/components/RevenueChart";
 import { TopProductsTable } from "@/components/TopProductsTable";
 import { RecentActivityFeed } from "@/components/RecentActivityFeed";
-import type { Period } from "@/components/PeriodSelector";
+import type { Period, DateRange } from "@/components/PeriodSelector";
+
+function getDefaultDateRange(): DateRange {
+  const end = new Date();
+  const start = new Date();
+  start.setDate(start.getDate() - 30);
+  return {
+    startDate: start.toISOString().split("T")[0],
+    endDate: end.toISOString().split("T")[0],
+  };
+}
 
 export default function DashboardPage() {
   const { token, store, logout, isLoading } = useAuth();
   const router = useRouter();
   const [period, setPeriod] = useState<Period>("today");
+  const [dateRange, setDateRange] = useState<DateRange>(getDefaultDateRange);
 
-  const { overview, isLoading: overviewLoading, error: overviewError } = useAnalytics(period);
-  const { products, isLoading: productsLoading, error: productsError } = useTopProducts(period);
+  const { overview, isLoading: overviewLoading, error: overviewError } = useAnalytics(
+    period,
+    period === "custom" ? dateRange : undefined,
+  );
+  const { products, isLoading: productsLoading, error: productsError } = useTopProducts(
+    period === "custom" ? "month" : period,
+  );
   const { activities, isLoading: activitiesLoading, error: activitiesError } = useRecentActivity();
   const { liveEvents } = useEventSource();
 
@@ -49,6 +65,8 @@ export default function DashboardPage() {
         onLogout={logout}
         period={period}
         onPeriodChange={setPeriod}
+        dateRange={dateRange}
+        onDateRangeChange={setDateRange}
       />
 
       <main className="mx-auto max-w-7xl space-y-6 px-6 py-8">
